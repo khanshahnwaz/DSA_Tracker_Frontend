@@ -1,8 +1,8 @@
 const isProd = process.env.NODE_ENV === 'production';
 const nextConfig = {
   productionBrowserSourceMaps: false,
-  basePath: isProd ? '/DSA_Tracker_Frontend' : '',
-  assetPrefix: isProd ? '/DSA_Tracker_Frontend/' : '',
+  // basePath: isProd ? '/DSA_Tracker_Frontend' : '',
+  // assetPrefix: isProd ? '/DSA_Tracker_Frontend/' : '',
   trailingSlash: true,
   output: "export",
   reactStrictMode: true,
