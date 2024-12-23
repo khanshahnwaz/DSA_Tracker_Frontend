@@ -14,8 +14,8 @@ export default function Home() {
   }, []);
 
   const fetchQuestions=async()=>{
-    // fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`,{
-    await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`,{
+    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`,{
+    // await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`,{
       // mode:'no-cors',
     })
       .then(res => res.json())
@@ -27,14 +27,14 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("form submitted with data: ",JSON.stringify(form))
-    // const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(form),
-    //   // mode:'no-cors',
-    // });
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+      // mode:'no-cors',
+    });
 
-    const res = await axios.post('https://dsa-tracker-backend-kappa.vercel.app/api/dsa', JSON.stringify(from));
+    // const res = await axios.post('https://dsa-tracker-backend-kappa.vercel.app/api/dsa', JSON);
 
     const data = await res.json();
     setDsaList([data,...dsaList]);
