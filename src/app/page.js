@@ -77,7 +77,7 @@ export default function Home() {
       <h1 className="text-4xl font-bold mb-4 text-center text-gray-700">
         DSA Tracker
       </h1>
-      <p className="text-red-400 text-center ">To add questions, shift to desktop size.</p>
+      <p className="text-red-400 text-center md:hidden">To add questions, shift to desktop size.</p>
 
       <div className="md:flex space-x-5 justify-evenly container p-8  max-w-screen mx-auto max-h-screen">
         {/* filter bar for mobile size  */}
