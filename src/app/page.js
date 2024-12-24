@@ -1,6 +1,6 @@
 "use client";
-import axios from "axios";
 import { useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Home() {
   const [questions, setQuestions] = useState([]);
@@ -30,6 +30,7 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("form submitted with data: ", JSON.stringify(form));
+    toast.loading("Adding",{id:"Add"})
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`,
       {
@@ -39,6 +40,9 @@ export default function Home() {
         // mode:'no-cors',
       }
     );
+    if(res.status===200)
+      toast.success("Added",{id:"Add"})
+    else toast.error("Failed to add ",{id:"Add"})
 
     // const res = await axios.post('https://dsa-tracker-backend-kappa.vercel.app/api/dsa', JSON);
 
@@ -55,9 +59,13 @@ export default function Home() {
   };
 
   const handleDelete = async (id) => {
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa/${id}`, {
+  toast.loading("Deleting",{id:"Delete"});
+   const res= await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa/${id}`, {
       method: "DELETE",
     });
+    if(res.status===200)
+    toast.success("Deleted",{id:"Delete"});
+    else toast.error("Failed to delete",{id:"Delete"});
     fetchQuestions();
   };
 
@@ -73,6 +81,8 @@ export default function Home() {
   };
 
   return (
+  <>
+  <Toaster position="top-right"/>
     <div className="w-[100vw]">
       <h1 className="text-4xl font-bold mb-4 text-center text-gray-700">
         DSA Tracker
@@ -157,7 +167,7 @@ export default function Home() {
           </select>
           <button
             type="submit"
-            className="bg-blue-500 text-white p-3 rounded w-full"
+            className="bg-blue-500 text-white p-3 rounded w-full hover:opacity-50"
           >
             Add
           </button>
@@ -202,12 +212,12 @@ export default function Home() {
               >
                 Delete
               </button>
-              <button
+              {/* <button
                 onClick={() => handleEdit(dsa._id)}
                 className="bg-blue-500 text-white p-2 rounded mt-4 hover:opacity-50"
               >
                 Edit
-              </button>
+              </button> */}
             </div>
           ))}
         </div>
@@ -247,5 +257,6 @@ export default function Home() {
         </div>
       </div>
     </div>
+    </>
   );
 }
