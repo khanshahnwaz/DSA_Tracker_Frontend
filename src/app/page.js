@@ -30,7 +30,7 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("form submitted with data: ", JSON.stringify(form));
-    const res = await axios.post(
+    const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`,
       {
         method: "POST",
@@ -175,9 +175,9 @@ export default function Home() {
                   : "border-red-500"
               }`}
             >
-              <h3 className="text-2xl font-bold">{dsa.title.toUpperCase()}</h3>
+              <h3 className="text-2xl font-bold">{dsa.title?.toUpperCase()}</h3>
               <p className="font-semibold">
-                <strong>Question:</strong> {dsa.topic.toUpperCase()}
+                <strong>Question:</strong> {dsa.topic?.toUpperCase()}
               </p>
               <p>
                 <strong>Brute Force:</strong> {dsa.bruteForce}
