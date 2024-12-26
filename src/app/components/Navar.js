@@ -3,10 +3,12 @@
 
 import toast from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext"
+import { useRouter } from "next/navigation";
 
 const Navbar = ({ name }) => {
 //   const router = useRouter()
   const auth= useAuth();
+  const router=useRouter();
   const handleLogout =async() => {
     // You can add logout logic here (e.g., clear session, redirect)
     toast.loading("Logging Out ",{id:'logout'})
@@ -15,6 +17,7 @@ const Navbar = ({ name }) => {
     
     await auth?.logout();
     toast.success("Logged out",{id:'logout'})
+    router.push('/auth/user/signin')
     }catch(err){
       toast.error("Failed to logout",{id:'logout'})
     }
@@ -27,7 +30,7 @@ const Navbar = ({ name }) => {
         <div className="text-xl  font-semibold text-black">
           Welcome {auth?.user?.name}
         </div>
-        <h1 className="text-4xl font-bold mb-4 text-center text-gray-700">
+        <h1 className="md:text-4xl text-lg font-bold mb-4 text-center text-gray-700">
         DSA Tracker
       </h1>
        <button

@@ -36,7 +36,7 @@ export const AuthProvider=({children})=>{
         }
     };
     const signUp=async(name,email,password)=>{
-        console.log("sign up called. ")
+        // console.log("sign up called. ")
         const data=await signUpUser(name,email,password);
         if(data){
             setUser({email:data.email,name:data.name})

@@ -12,6 +12,8 @@ export default function Home() {
   useEffect(()=>{
       if(auth.isLoggedIn===false)
         router.push('/api/auth/signin')
+
+      fetchQuestions()
   },[auth])
   const [questions, setQuestions] = useState([]);
   const [dsaList, setDsaList] = useState([]);
@@ -25,9 +27,7 @@ export default function Home() {
   const [filter, setFilter] = useState("All");
   const [filteredQuestions, setFilteredQuestions] = useState([]);
 
-  useEffect(() => {
-    fetchQuestions();
-  }, []);
+  
 
   const fetchQuestions = async () => {
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`, {
@@ -36,7 +36,11 @@ export default function Home() {
       // mode:'no-cors',
     })
       .then((res) => res.json())
-      .then((data) => (data.reverse(), setDsaList(data), setQuestions(data)));
+      .then((data) => {
+        if(data.length)
+          data.reverse();
+        setDsaList(data), setQuestions(data)
+      });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,7 +83,7 @@ export default function Home() {
     });
     if(res.status===200)
     toast.success("Deleted",{id:"Delete"});
-    else toast.error("Failed to delete",{id:"Delete"});
+    else toast.error("Retry!",{id:"Delete"});
     fetchQuestions();
   };
 

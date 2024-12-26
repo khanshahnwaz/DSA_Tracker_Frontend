@@ -33,6 +33,7 @@ export const logoutUser=async()=>{
 }
 
 export const checkAuthStatus=async()=>{
+
     const res= await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/user/auth-status`,{withCredentials:true});
     // console.log(res)
     if(res.status!=200){
