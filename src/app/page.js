@@ -146,6 +146,7 @@ export default function Home() {
   className="hidden md:block space-y-4 bg-white p-6 shadow rounded w-full h-max text-gray-600"
 >
   <input
+   required
     type="text"
     placeholder="Title"
     value={form.title}
@@ -153,6 +154,7 @@ export default function Home() {
     className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-100"
   />
   <input
+   required
     type="text"
     placeholder="Topic"
     value={form.topic}
@@ -160,12 +162,14 @@ export default function Home() {
     className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-100"
   />
   <textarea
+   required
     placeholder="Brute Force Solution"
     value={form.bruteForce}
     onChange={(e) => setForm({ ...form, bruteForce: e.target.value })}
     className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-100"
   />
   <textarea
+  required
     placeholder="Optimal Solution"
     value={form.optimal}
     onChange={(e) => setForm({ ...form, optimal: e.target.value })}
