@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useAuth } from '../../../../context/AuthContext';
-import { SessionProvider, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect,useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
