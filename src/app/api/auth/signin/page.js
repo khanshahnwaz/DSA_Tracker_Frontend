@@ -47,7 +47,7 @@ export default function SignInPage() {
               name="email"
               type="email"
               id="email"
-              className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+              className="text-gray-500 mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
               required
             />
           </div>
@@ -58,7 +58,7 @@ export default function SignInPage() {
               name="password"
               type="password"
               id="password"
-              className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+              className="text-gray-500 mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
               required
             />
           </div>

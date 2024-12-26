@@ -3,14 +3,11 @@ import Link from 'next/link';
 import { useAuth } from '../../../../context/AuthContext';
 import { SessionProvider, signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect,useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-export default async function SignUpPage() {
+export default function SignUpPage() {
   const auth = useAuth();
   const router = useRouter();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,6 +19,7 @@ export default async function SignUpPage() {
     const name = formData.get("name");
 
     try {
+      
       toast.loading("Signing Up", { id: "signUp" });
       await auth?.signUp(name, email, password);
       toast.success("Signed Up Successfully", { id: "signUp" });
@@ -48,10 +46,9 @@ export default async function SignUpPage() {
               name="name"
               type="text"
               id="name"
-              className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+              className="text-gray-500 mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
               required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              
             />
           </div>
 
@@ -61,10 +58,9 @@ export default async function SignUpPage() {
               name="email"
               type="email"
               id="email"
-              className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+              className="text-gray-500 mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+             
             />
           </div>
 
@@ -74,10 +70,9 @@ export default async function SignUpPage() {
               name="password"
               type="password"
               id="password"
-              className="mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+              className="text-gray-500 mt-1 block w-full px-4 py-2 rounded-lg border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
               required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+             
             />
           </div>
 
