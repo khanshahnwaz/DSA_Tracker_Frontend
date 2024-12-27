@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useAuth } from '../../../../context/AuthContext';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect,useState } from 'react';
+import { useEffect} from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 export default function SignUpPage() {
   const auth = useAuth();

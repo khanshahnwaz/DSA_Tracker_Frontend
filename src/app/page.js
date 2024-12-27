@@ -16,16 +16,21 @@ export default function Home() {
       fetchQuestions()
   },[auth])
   const [questions, setQuestions] = useState([]);
-  const [dsaList, setDsaList] = useState([]);
+  const [dsaList, setDsaList] = useState([
+   
+  ]);
+  const [showForm,setShowForm]=useState(false);
   const [form, setForm] = useState({
     title: "",
     topic: "",
-    bruteForce: "",
+    bruteforce: "",
     optimal: "",
-    level: "Easy",
+    level: 'Easy',
   });
   const [filter, setFilter] = useState("All");
-  const [filteredQuestions, setFilteredQuestions] = useState([]);
+  const [filteredQuestions, setFilteredQuestions] = useState([
+  
+  ]);
 
   
 
@@ -39,9 +44,11 @@ export default function Home() {
       .then((data) => {
         if(data.length)
           data.reverse();
+        
         setDsaList(data), setQuestions(data)
       });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("form submitted with data: ", JSON.stringify(form));
@@ -73,6 +80,11 @@ export default function Home() {
       optimal: "",
       level: "Easy",
     });
+
+
+    // if mobile sizse
+    if(showForm)
+      setShowForm(false)
   };
 
   const handleDelete = async (id) => {
@@ -103,7 +115,18 @@ export default function Home() {
   <Navbar />
     <div className="w-[100vw]">
      <Toaster position="top-right"/>
-      <p className="text-red-400 text-center md:hidden">To add questions, shift to desktop size.</p>
+      {/* <p className="text-red-400 text-center md:hidden">To add questions, switch to desktop size.</p> */}
+
+       
+      {/* Button for Small Screens */}
+      <div className="md:hidden flex justify-center">
+        <button
+          onClick={() => setShowForm(!showForm)}
+          className="py-2 px-6 mb-6 bg-gray-800 text-white rounded-lg"
+        >
+          {showForm ? 'Close Form' : 'Open Form To Add'}
+        </button>
+      </div>
 
       <div className="md:flex space-x-5 justify-evenly container p-8  max-w-screen mx-auto max-h-screen">
         {/* filter bar for mobile size  */}
@@ -143,12 +166,12 @@ export default function Home() {
         </div>
         <form
   onSubmit={handleSubmit}
-  className="hidden md:block space-y-4 bg-white p-6 shadow rounded w-full h-max text-gray-600"
+  className={`${!showForm?'hidden':null} md:block space-y-4 bg-white p-6 shadow rounded w-full h-max text-gray-600`}
 >
   <input
    required
     type="text"
-    placeholder="Title"
+    placeholder="Title e.g. Array"
     value={form.title}
     onChange={(e) => setForm({ ...form, title: e.target.value })}
     className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-100"
@@ -156,7 +179,7 @@ export default function Home() {
   <input
    required
     type="text"
-    placeholder="Topic"
+    placeholder="Question"
     value={form.topic}
     onChange={(e) => setForm({ ...form, topic: e.target.value })}
     className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-100"

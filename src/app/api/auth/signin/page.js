@@ -5,9 +5,23 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-
+import {auth} from '../../../../auth'
 export default function SignInPage() {
-  const auth = useAuth();
+
+  
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signIn('google', { callbackUrl: '/' });
+      if (result.error) {
+        toast.error('Sign In Failed');
+      }
+    } catch (error) {
+      toast.error('Google Sign-In Failed');
+    }
+  };
+
+
+  const authContext = useAuth();
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -20,7 +34,7 @@ export default function SignInPage() {
 
     try {
       toast.loading("Signing In", { id: "login" });
-      await auth?.login(email, password);
+      await authContext?.login(email, password);
       toast.success("Signed In Successfully", { id: "login" });
     } catch (error) {
       toast.error("Sign In Failed", { id: "login" });
@@ -28,10 +42,10 @@ export default function SignInPage() {
   };
 
   useEffect(() => {
-    if (auth.isLoggedIn) {
+    if (authContext.isLoggedIn) {
       router.push('/');
     }
-  }, [auth]);
+  }, [authContext]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -78,7 +92,7 @@ export default function SignInPage() {
         </div>
 
         <button
-          onClick={() => signIn('google')}
+          onClick={handleGoogleSignIn}
           className="mt-4 flex w-full items-center justify-center py-2 px-4 bg-white border border-gray-300 text-gray-800 rounded-lg hover:bg-gray-100 transition duration-300"
         >
           <img
@@ -90,7 +104,7 @@ export default function SignInPage() {
         </button>
 
         <p className="mt-4 text-center text-sm text-gray-500">
-          Don't have an account? <Link href="/api/auth/signup" className="text-gray-800 hover:underline">Sign Up</Link>
+          Don't have an account? <Link href="/api/authContext/signup" className="text-gray-800 hover:underline">Sign Up</Link>
         </p>
       </div>
     </div>
