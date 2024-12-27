@@ -51,7 +51,7 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("form submitted with data: ", JSON.stringify(form));
+    // console.log("form submitted with data: ", JSON.stringify(form));
     toast.loading("Adding",{id:"Add"})
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`,
@@ -70,7 +70,7 @@ export default function Home() {
     // const res = await axios.post('https://dsa-tracker-backend-kappa.vercel.app/api/dsa', JSON);
 
     const data = await res.json();
-    console.log("recieved ",data)
+    // console.log("recieved ",data)
     setDsaList([data, ...dsaList]);
     setQuestions([data, ...questions]);
     setForm({
@@ -219,7 +219,7 @@ export default function Home() {
 
 
         <div className="min-w-[30vw] overflow-y-auto">
-          {console.log("Dsa list",dsaList)}
+          {/* {console.log("Dsa list",dsaList)} */}
           {dsaList?.map((dsa, index) => (
             <div
               key={index}
@@ -307,103 +307,3 @@ export default function Home() {
     </>
   );
 }
-// DSA Tracker App - Full Implementation with NextAuth for Authentication
-// 'use client'
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import { signIn, signOut, useSession } from 'next-auth/react';
-// import { useRouter } from 'next/navigation';
-
-// const DsaTracker = () => {
-//     const { data: session, status } = useSession();
-//     const router = useRouter();
-//     const [questions, setQuestions] = useState([]);
-//     const [filteredQuestions, setFilteredQuestions] = useState([]);
-//     const [editId, setEditId] = useState(null);
-//     const [formData, setFormData] = useState({ title: '', level: '', solution: '' });
-//     const [filter, setFilter] = useState('All');
-
-//     useEffect(() => {
-//         if (status === 'authenticated') {
-//             fetchQuestions();
-//         } else if (status === 'unauthenticated') {
-//             router.push('/api/auth/signin');
-//         }
-//     }, [status]);
-
-//     const fetchQuestions = async () => {
-//         try {
-//             const res = await axios.get('https://dsa-tracker-backend-kappa.vercel.app/api/dsa');
-//             setQuestions(res.data);
-//             setFilteredQuestions(res.data);
-//         } catch (error) {
-//             console.error('Error fetching questions:', error);
-//         }
-//     };
-
-//     if (status === 'loading') {
-//         return <div>Loading...</div>;
-//     }
-
-//     if (!session) {
-//         return (
-//             <div className="container">
-//                 <h1>Please Sign In to Access DSA Tracker</h1>
-//                 <button onClick={() => signIn()}>Sign In</button>
-//             </div>
-//         );
-//     }
-
-//     return (
-//         <div className="container">
-//             <h1>DSA Tracker</h1>
-//             <button onClick={() => signOut()}>Sign Out</button>
-            
-//             <div className="filter-bar">
-//                 <button onClick={() => handleFilter('All')}>All</button>
-//                 <button onClick={() => handleFilter('Easy')}>Easy</button>
-//                 <button onClick={() => handleFilter('Medium')}>Medium</button>
-//                 <button onClick={() => handleFilter('Hard')}>Hard</button>
-//             </div>
-
-//             <form onSubmit={(e) => { e.preventDefault(); handleSave(); }}>
-//                 <input
-//                     type="text"
-//                     placeholder="Title"
-//                     value={formData.title}
-//                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-//                     required
-//                 />
-//                 <select
-//                     value={formData.level}
-//                     onChange={(e) => setFormData({ ...formData, level: e.target.value })}
-//                     required
-//                 >
-//                     <option value="">Select Level</option>
-//                     <option value="Easy">Easy</option>
-//                     <option value="Medium">Medium</option>
-//                     <option value="Hard">Hard</option>
-//                 </select>
-//                 <textarea
-//                     placeholder="Solution"
-//                     value={formData.solution}
-//                     onChange={(e) => setFormData({ ...formData, solution: e.target.value })}
-//                     required
-//                 />
-//                 <button type="submit">{editId ? 'Update' : 'Add'}</button>
-//             </form>
-
-//             <ul>
-//                 {filteredQuestions.map(q => (
-//                     <li key={q._id}>
-//                         <h3>{q.title} - {q.level}</h3>
-//                         <p>{q.solution}</p>
-//                         <button onClick={() => handleEdit(q._id)}>Edit</button>
-//                     </li>
-//                 ))}
-//             </ul>
-//         </div>
-//     );
-// };
-
-// export default DsaTracker;

@@ -28,7 +28,7 @@ export default function SignInPage() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    console.log("Form submit ", data);
+    // console.log("Form submit ", data);
     const email = formData.get("email");
     const password = formData.get("password");
 
@@ -91,8 +91,11 @@ export default function SignInPage() {
           <div className="border-t border-gray-300 w-1/3"></div>
         </div>
 
+
+{/* for later version */}
         <button
-          onClick={handleGoogleSignIn}
+          // onClick={handleGoogleSignIn}
+          onClick={()=>toast.error("Currently not available",{id:'google'})}
           className="mt-4 flex w-full items-center justify-center py-2 px-4 bg-white border border-gray-300 text-gray-800 rounded-lg hover:bg-gray-100 transition duration-300"
         >
           <img
@@ -104,7 +107,7 @@ export default function SignInPage() {
         </button>
 
         <p className="mt-4 text-center text-sm text-gray-500">
-          Don't have an account? <Link href="/api/authContext/signup" className="text-gray-800 hover:underline">Sign Up</Link>
+          Don't have an account? <Link href="/api/auth/signup" className="text-gray-800 hover:underline">Sign Up</Link>
         </p>
       </div>
     </div>

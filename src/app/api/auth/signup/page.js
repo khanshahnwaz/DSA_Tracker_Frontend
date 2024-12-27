@@ -13,7 +13,7 @@ export default function SignUpPage() {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-    console.log("Form submit ", data);
+    // console.log("Form submit ", data);
     const email = formData.get("email");
     const password = formData.get("password");
     const name = formData.get("name");
@@ -91,7 +91,8 @@ export default function SignUpPage() {
         </div>
 
         <button
-          onClick={() => signIn('google')}
+           // onClick={handleGoogleSignIn}
+           onClick={()=>toast.error("Currently not available",{id:'google'})}
           className="mt-4 flex w-full items-center justify-center py-2 px-4 bg-white border border-gray-300 text-gray-800 rounded-lg hover:bg-gray-100 transition duration-300"
         >
           <img
