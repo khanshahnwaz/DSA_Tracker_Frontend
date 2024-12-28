@@ -35,18 +35,25 @@ export default function Home() {
   
 
   const fetchQuestions = async () => {
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`, {
+    const res=await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`, {
       credentials:'include'
       // await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`,{
       // mode:'no-cors',
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if(data.length)
-          data.reverse();
+   
+    if(res.status===200){
+    const response=await res.json();
+    response.reverse();
+    setDsaList(response);
+    setQuestions(response);
+  }
+      // .then((res) => res.json())
+      // .then((data) => {
+      //   if(data.length)
+      //     data.reverse();
         
-        setDsaList(data), setQuestions(data)
-      });
+      //   setDsaList(data), setQuestions(data)
+      // });
   };
 
   const handleSubmit = async (e) => {
@@ -166,7 +173,7 @@ export default function Home() {
         </div>
         <form
   onSubmit={handleSubmit}
-  className={`${!showForm?'hidden':null} md:block space-y-4 bg-white p-6 shadow rounded w-full h-max text-gray-600`}
+  className={`${!showForm?'hidden':null} md:block space-y-4 bg-white p-6 shadow rounded w-full min-w-[30vw] h-max text-gray-600`}
 >
   <input
    required
@@ -219,7 +226,7 @@ export default function Home() {
 
 
         <div className="min-w-[30vw] overflow-y-auto">
-          {/* {console.log("Dsa list",dsaList)} */}
+          {console.log("Dsa list",dsaList)}
           {dsaList?.map((dsa, index) => (
             <div
               key={index}
