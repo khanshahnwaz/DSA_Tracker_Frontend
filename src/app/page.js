@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const auth=useAuth();
 
+  
   const router=useRouter();
   useEffect(()=>{
       if(auth.isLoggedIn===false)
@@ -16,9 +17,25 @@ export default function Home() {
       fetchQuestions()
   },[auth])
   const [questions, setQuestions] = useState([]);
-  const [dsaList, setDsaList] = useState([
-   
-  ]);
+  const [dsaList, setDsaList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [questionsPerPage] = useState(10);
+
+  const indexOfLastQuestion = currentPage * questionsPerPage;
+  const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
+  const currentQuestions = dsaList.slice(indexOfFirstQuestion, indexOfLastQuestion);
+
+  const nextPage = () => {
+    if (currentPage < Math.ceil(dsaList.length / questionsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
   const [showForm,setShowForm]=useState(false);
   const [form, setForm] = useState({
     title: "",
@@ -223,11 +240,11 @@ export default function Home() {
 </form>
 
 
-
+{/* Questions  */}
 
         <div className="min-w-[30vw] overflow-y-auto">
-          {console.log("Dsa list",dsaList)}
-          {dsaList?.map((dsa, index) => (
+          {/* {console.log("Dsa list",dsaList)} */}
+          {currentQuestions?.map((dsa, index) => (
             <div
               key={index}
               className={`p-6 bg-white shadow mb-4 rounded border-l-4 text-gray-600 ${
@@ -273,7 +290,14 @@ export default function Home() {
               </button> */}
             </div>
           ))}
+           <div className="flex justify-center space-x-2 mt-4">
+              <button onClick={prevPage} className="px-4 py-2 bg-gray-200 text-gray-500 rounded-lg">Prev</button>
+              <span className="px-4 py-2 text-gray-500">Page {currentPage}</span>
+              <button onClick={nextPage} className="px-4 py-2 bg-gray-200 text-gray-500 rounded-lg">Next</button>
+            </div>
         </div>
+
+
         <div className="filter-bar hidden md:flex h-max space-x-2 text-gray-500">
           <button
             className={` ${
