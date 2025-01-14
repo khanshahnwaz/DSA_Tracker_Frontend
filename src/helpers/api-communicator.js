@@ -29,8 +29,7 @@ export const logoutUser=async()=>{
         throw new Error("Unable to logout.")
     }
     
-    const data=await res.data;
-    return data;
+    
 }
 
 export const checkAuthStatus=async()=>{
@@ -41,6 +40,7 @@ export const checkAuthStatus=async()=>{
         throw new Error("Unable to authenticate.")
     }
     const data=await res.data;
+    console.log("Data ",data)
     return data;
 }
 

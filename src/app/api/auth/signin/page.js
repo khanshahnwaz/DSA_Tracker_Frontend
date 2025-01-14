@@ -40,7 +40,12 @@ export default function SignInPage() {
       toast.error("Sign In Failed", { id: "login" });
     }
   };
-
+  
+  useEffect(()=>{
+    if (authContext.isLoggedIn) {
+      router.push('/');
+    }
+  },[])
   useEffect(() => {
     if (authContext.isLoggedIn) {
       router.push('/');

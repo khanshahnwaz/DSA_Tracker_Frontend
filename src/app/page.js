@@ -4,6 +4,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Navbar from './components/Navar'
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
+import FilterBox from '../app/components/FIlterBox'
 // import {  useRouter } from "next/router";
 export default function Home() {
   const auth=useAuth();
@@ -13,7 +14,7 @@ export default function Home() {
   useEffect(()=>{
       if(auth.isLoggedIn===false)
         router.push('/api/auth/signin')
-
+   
       fetchQuestions()
   },[auth])
   const [questions, setQuestions] = useState([]);
@@ -290,49 +291,20 @@ export default function Home() {
               </button> */}
             </div>
           ))}
+
+          {/* pagination */}
+          {dsaList.length>10?
            <div className="flex justify-center space-x-2 mt-4">
               <button onClick={prevPage} className="px-4 py-2 bg-gray-200 text-gray-500 rounded-lg">Prev</button>
               <span className="px-4 py-2 text-gray-500">Page {currentPage}</span>
               <button onClick={nextPage} className="px-4 py-2 bg-gray-200 text-gray-500 rounded-lg">Next</button>
             </div>
+            :null}
         </div>
 
+{/* Filter Box */}
 
-        <div className="filter-bar hidden md:flex h-max space-x-2 text-gray-500">
-          <button
-            className={` ${
-              filter == "All" ? "bg-gray-600 text-gray-400" : null
-            } rounded-md bg-gray-300 px-2 py-0 cursor-pointer hover:opacity-30`}
-            onClick={() => handleFilter("All")}
-          >
-            All
-          </button>
-          <button
-            className={` ${
-              filter == "Easy" ? "bg-gray-600 text-gray-400" : null
-            } rounded-md bg-gray-300 px-2 py-0 cursor-pointer hover:opacity-30`}
-            onClick={() => handleFilter("Easy")}
-          >
-            Easy
-          </button>
-          <button
-            className={` ${
-              filter == "Medium" ? "bg-gray-600 text-gray-400" : null
-            } rounded-md bg-gray-300 px-2 py-0 cursor-pointer hover:opacity-30`}
-            onClick={() => handleFilter("Medium")}
-          >
-            Medium
-          </button>
-          <button
-            className={` ${
-              filter == "Hard" ? "bg-gray-600 text-gray-400" : null
-            } rounded-md bg-gray-300 px-2 py-0 cursor-pointer hover:opacity-30`}
-            onClick={() => handleFilter("Hard")}
-          >
-            Hard
-          </button>
-          <p>{dsaList?.length}</p>
-        </div>
+        <FilterBox dsaList={dsaList} handleFilter={handleFilter} filter={filter}/>
       </div>
     </div>
     </>
