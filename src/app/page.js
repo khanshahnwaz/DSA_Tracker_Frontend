@@ -54,7 +54,10 @@ export default function Home() {
 
   const fetchQuestions = async () => {
     const res=await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`, {
-      credentials:'include'
+      credentials:'include',
+      headers: {
+        "Content-Type": "application/json",
+      },
       // await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/dsa`,{
       // mode:'no-cors',
     })

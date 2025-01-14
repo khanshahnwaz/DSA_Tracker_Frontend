@@ -17,7 +17,7 @@ export const AuthProvider=({children})=>{
 
             const data=await checkAuthStatus();
             console.log("Auth request ",data)
-            if(data && isLoggedIn){
+            if(data){
                 setUser({email:data.email,name:data.name})
                 setIsLoggedIn(true)
             }else{
