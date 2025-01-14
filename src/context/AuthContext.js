@@ -57,6 +57,7 @@ export const AuthProvider=({children})=>{
         }catch(err){
           toast.error("Logout failed.")
         }
+        
        
     }
     const value={

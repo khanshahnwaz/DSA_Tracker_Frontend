@@ -17,7 +17,7 @@ const Navbar = ({ name }) => {
     
     await auth?.logout();
     toast.success("Logged out",{id:'logout'})
-    router.push('/auth/user/signin')
+    router.push('api/auth/signin')
     }catch(err){
       toast.error("Failed to logout",{id:'logout'})
     }

@@ -28,7 +28,8 @@ export const logoutUser=async()=>{
     if(res.status!=200){
         throw new Error("Unable to logout.")
     }
-    
+    const data=await res.data;
+    return data;
     
 }
 
